@@ -1,0 +1,110 @@
+# schema register Login
+info:
+title: Register login
+description: api cadastro para login
+
+# Estados da aplicação caso campos não estejam preenchidos
+
+paths:
+  /register:
+    summary: Register an user
+    requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/register"
+    post:
+      responses:
+        "400":
+          description: When user do not send info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
+              # Estados da aplicação caso os campos estejam preenchidos
+        "200":
+          description: OK
+          content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/auth"
+  /forgot_password:
+    summary: "Esqueci a senha"
+    content:
+      application/json:
+        schema:                
+  /recover_password:
+    summary: " recuperar senha"
+    content:
+      application/json:
+        schema: 
+            
+  /reset_password:
+    summary: "redefinir senha"
+    content:
+      application/json:
+        schema: 
+                    
+components:
+  schemas:
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
+    coordinate:
+      type: integer
+      minimum: 1
+      maximum: 3
+      example: 1
+
+    login:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email of the user.
+          example: "example@example.com"
+        password:
+          type: string
+          description: Password of the user.
+          example: "password_secret"
+    register:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email of the user.
+          example: "example@example.com"
+        password:
+          type: string
+          description: Password of the user.
+          example: "password_secret"
+        confPassword:
+          type: string
+          description: Password of the user.
+          example: "password_secret"
+    user:
+      type: object
+      properties:
+        email:
+          type: string
+          min: 6
+          max: 255
+        name:
+          type: string
+          min: 3
+          max: 255
+        age:
+          type: number
+          example: "age"
+    auth: 
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token of user
+        user:
+          $ref: "#/components/schemas/user"
+    
+          
